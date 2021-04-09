@@ -1,0 +1,25 @@
+version: '3'
+services:
+    nginx:
+      restart: always
+      build:
+        dockerfile: Dockerfile.dev
+        context: ./nginx
+      ports:
+        - '3050:80'
+    authentication:
+      build:
+        dockerfile: Dockerfile.dev
+        context: ./node-auth-service
+      volumes:
+        - /app/node_modules
+        - .:/app
+      environment:
+        - AWS_REGION='us-east-1'  
+    client:
+      build:
+        dockerfile: Dockerfile.dev
+        context: ./ReactBolerPlateWithWebpackExpress
+      volumes:
+        - /app/node_modules
+        - .:/app
