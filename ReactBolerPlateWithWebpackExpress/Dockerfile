@@ -26,7 +26,9 @@ FROM nginx
 
 # This instruction does not do anything when running in local machine.
 # ElasticBeanstalk uses this port to map.
-EXPOSE 80
+EXPOSE 3000
+
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 # we ignore all other files except index.html which is main index page where
 # react app is imported
 # and javascript bundle.

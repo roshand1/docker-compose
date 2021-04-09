@@ -1,0 +1,33 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t rdangal1/multiconainer-test -f ./ReactBolerPlateWithWebpackExpress/Dockerfile.dev ./ReactBolerPlateWithWebpackExpress
+
+script:
+  - echo 'test ran'
+
+after_success:
+  - docker build -t rdangal1/multi-reactapp ./ReactBolerPlateWithWebpackExpress
+  - docker build -t rdangal1/multi-nginx ./nginx
+  - docker build -t rdangal1/multi-node-auth-service ./node-auth-service
+
+# Login to docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+# Take this image and push in docker hub using docker cli
+  - docker push rdangal1/multi-reactapp
+  - docker push rdangal1/multi-nginx
+  - docker push rdangal1/multi-node-auth-service
+
+# deploy:
+#   provider: elasticbeanstalk
+#   region: "us-east-2"
+#   app: "react-app-docker"
+#   env: "Reactappdocker-env"
+#   bucket_name: "elasticbeanstalk-us-east-2-145586335677"
+#   bucket_path: "react-app-docker"
+#   on:
+#     branch: main
+#   access_key_id: "$AWS_ACCESS_KEY"
+#   secret_access_key: "$AWS_SECRET_KEY"
