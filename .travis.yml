@@ -21,6 +21,7 @@ after_success:
   - docker push roshand1/multi-nginx
   - docker push roshand1/multi-node-auth-service
 
+  # build
 deploy:
   provider: elasticbeanstalk
   region: "us-east-2"
