@@ -12,9 +12,10 @@ after_success:
   - docker build -t rdangal1/multi-reactapp ./ReactBolerPlateWithWebpackExpress
   - docker build -t rdangal1/multi-nginx ./nginx
   - docker build -t rdangal1/multi-node-auth-service ./node-auth-service
+  - docker images
 
 # Login to docker CLI
-  - cat "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - echo '$DOCKER_PASSWORD' | docker login -u '$DOCKER_ID' --password-stdin
 # Take this image and push in docker hub using docker cli
   - docker push rdangal1/multi-reactapp
   - docker push rdangal1/multi-nginx
