@@ -1,0 +1,30 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "roshand1/multi-reactapp",
+            "hostname":"client",
+            "essential":false
+        },
+        {
+            "name": "node-auth-service",
+            "image": "roshand1/multi-node-auth-service",
+            "hostname":"api",
+            "essential":false
+        },
+        {
+            "name": "nginx",
+            "image": "roshand1/multi-nginx",
+            "hostname":"nginx",
+            "essential":true,
+            "portMappings":[
+                {
+                    "hostPort": 80,
+                    "containerPort": 80
+                }
+            ],
+            "links":["client","node-auth-service"]
+        }
+    ]
+}

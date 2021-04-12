@@ -15,21 +15,20 @@ after_success:
   - docker images
 
 # Login to docker CLI
-  # - echo '$DOCKER_PASSWORD' | docker login -u '$DOCKER_ID' --password-stdin
-  - echo 'DockerAccount$1' | docker login -u 'roshand1' --password-stdin
+   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 # Take this image and push in docker hub using docker cli
   - docker push roshand1/multi-reactapp
   - docker push roshand1/multi-nginx
   - docker push roshand1/multi-node-auth-service
 
-# deploy:
-#   provider: elasticbeanstalk
-#   region: "us-east-2"
-#   app: "react-app-docker"
-#   env: "Reactappdocker-env"
-#   bucket_name: "elasticbeanstalk-us-east-2-145586335677"
-#   bucket_path: "react-app-docker"
-#   on:
-#     branch: main
-#   access_key_id: "$AWS_ACCESS_KEY"
-#   secret_access_key: "$AWS_SECRET_KEY"
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "multi-docker"
+  env: "Multidocker-env"
+  bucket_name: "elasticbeanstalk-us-east-2-145586335677"
+  bucket_path: "multi-docker"
+  on:
+    branch: master
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key: "$AWS_SECRET_KEY"
