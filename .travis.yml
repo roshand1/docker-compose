@@ -15,7 +15,8 @@ after_success:
   - docker images
 
 # Login to docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  #- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - echo 'DockerAccount$1' | docker login -u 'roshand1' --password-stdin 
 # Take this image and push in docker hub using docker cli
   - docker push roshand1/multi-reactapp
   - docker push roshand1/multi-nginx
